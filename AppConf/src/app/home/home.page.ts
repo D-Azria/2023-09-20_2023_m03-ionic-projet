@@ -27,7 +27,7 @@ export class HomePage implements OnInit{
     this._fetchService.getSessions()
       .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
-          this.firstCard = data[101];
+          this.firstCard = data[0];
         }
       );
     this.baseImgUrl = this._fetchService.baseImgUrl;
