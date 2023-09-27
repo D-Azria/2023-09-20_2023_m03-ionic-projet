@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MenuService} from "../../shared/services/menu.service";
+import {HeaderService} from "../../shared/services/header.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-header',
@@ -8,11 +10,16 @@ import {MenuService} from "../../shared/services/menu.service";
 })
 export class HeaderComponent  implements OnInit {
 
-  constructor(private _menuService: MenuService) { }
+  title: string = "Conférence";
 
-  ngOnInit() {}
+  private _subscription = new Subscription();
+  constructor(private _headerService: HeaderService) { }
 
-  changeCurrentPage(home: string) {
-    this._menuService.updateCurrentPageSource(home);
+  ngOnInit() {
+    this._subscription.add(this._headerService.$headerTitle.subscribe(data =>{
+      this.title = data;
+    }))
   }
+
+
 }

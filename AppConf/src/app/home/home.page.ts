@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {MenuService} from "../shared/services/menu.service";
-import {FetchService} from "../shared/services/fetch.service";
+import {HttpService} from "../shared/services/http.service";
 import {Session} from "../shared/models/session";
 import {Subject, takeUntil} from "rxjs";
+import {HeaderService} from "../shared/services/header.service";
 
 @Component({
   selector: 'app-home',
@@ -14,21 +15,19 @@ export class HomePage implements OnInit{
   title: string = "Conférence";
   baseImgUrl: string = "";
 
-  allCards:{ [key: number]: Session } ={};
+
   firstCard: Session = {}
 
   private destroy$ = new Subject<void>();
-  constructor(private _menuService: MenuService,
-              private _fetchService: FetchService) {}
+  constructor(private _headerService: HeaderService,
+              private _fetchService: HttpService) {}
 
   ngOnInit(): void {
-    this._menuService.updateCurrentPageSource(this.title);
+    this._headerService.updateHeaderTitle(this.title);
     this._fetchService.getSessions()
       .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
           this.firstCard = data[101];
-          this.allCards = data;
-          console.log(this.allCards);
         }
       );
     this.baseImgUrl = this._fetchService.baseImgUrl;

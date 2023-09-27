@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpService} from "../../shared/services/http.service";
+import {Session} from "../../shared/models/session";
+import {HeaderService} from "../../shared/services/header.service";
 
 @Component({
   selector: 'app-sessions',
@@ -7,8 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SessionsComponent  implements OnInit {
 
-  constructor() { }
+  title: string = "Sessions";
+  baseImgUrl: string = "";
+  allSessions:Session[] =[];
+  container = document.getElementById("container");
+  constructor(private _headerService: HeaderService,
+              private _httpService: HttpService) { }
 
-  ngOnInit() {}
-
+  ngOnInit() {
+    this._headerService.updateHeaderTitle(this.title);
+    this._httpService.getSessions().subscribe(data => {
+      this.allSessions = data;
+      })
+  }
 }

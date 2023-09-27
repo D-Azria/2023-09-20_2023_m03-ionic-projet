@@ -2,6 +2,13 @@
 <div class="ion-page" id="main-content">
   <app-header></app-header>
   <ion-content>
-    <ion-item>SESSIONS WORKS</ion-item>
+    <ion-list id="container">
+      <ion-item *ngFor="let s of allSessions">
+        <ion-label>{{s.title}}</ion-label>
+        <ion-button fill="clear">
+          <ion-icon name="chevron-forward" [routerLink]=""></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
   </ion-content>
 </div>

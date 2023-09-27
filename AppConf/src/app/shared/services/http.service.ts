@@ -1,12 +1,12 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {map, Observable} from "rxjs";
 import {Session} from "../models/session";
 
 @Injectable({
   providedIn: 'root',
 })
-export class FetchService{
+export class HttpService {
 
 
   baseImgUrl:string = "https://devfest2018.gdgnantes.com/";
@@ -19,7 +19,8 @@ export class FetchService{
   constructor(private _http: HttpClient) {}
 
   getSessions():Observable<Session[]> {
-    return this._http.get<Session[]>(this.baseSessionUrl);
+     return this._http.get<Session[]>(this.baseSessionUrl).pipe(
+       map(data => Object.values(data)));
   }
 
 }
