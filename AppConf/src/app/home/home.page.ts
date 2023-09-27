@@ -12,6 +12,7 @@ import {Subject, takeUntil} from "rxjs";
 export class HomePage implements OnInit{
 
   title: string = "Conférence";
+  baseImgUrl: string = "";
 
   allCards:{ [key: number]: Session } ={};
   firstCard: Session = {}
@@ -30,6 +31,7 @@ export class HomePage implements OnInit{
           console.log(this.allCards);
         }
       );
+    this.baseImgUrl = this._fetchService.baseImgUrl;
   }
 
   ngOnDestroy() {
