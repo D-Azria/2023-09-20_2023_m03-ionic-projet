@@ -1,3 +1,5 @@
+import {Speaker} from "./speaker";
+
 export interface Session {
   id?: number;
   title?: string;
@@ -10,6 +12,6 @@ export interface Session {
   category?: string;
   complexity?: string;
   track?: string;
-  speakers?: string;
+  speakers?: number[];
 }
 

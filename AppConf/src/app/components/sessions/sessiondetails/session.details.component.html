@@ -21,8 +21,14 @@
           <p *ngIf="session.type && session.tags">&nbsp;&nbsp;•&nbsp;&nbsp;</p>
           <p *ngIf="session.tags">Tags: {{session.tags}}</p>
         </ion-row>
+        <ion-col *ngIf="speakers.length>0">
+          <p>Speakers de cette conférence :</p>
+          <ion-row *ngFor="let s of speakers, index as i" >
+            <img src="{{baseImgUrl + s.photoUrl}}" style="max-width:25px">
+            <p><a (click)="goToSpeaker(s)" style="text-decoration: none">{{s.name}}</a></p>
+          </ion-row>
+        </ion-col>
       </ion-card-content>
     </ion-card>
-
   </ion-content>
 </div>

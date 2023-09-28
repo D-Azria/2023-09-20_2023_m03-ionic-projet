@@ -11,9 +11,10 @@ import {SpeakersComponent} from "./components/speakers/speakers.component";
 import {registerLocaleData} from "@angular/common";
 import * as fr from '@angular/common/locales/fr';
 import {SessionDetailsComponent} from "./components/sessions/sessiondetails/session.details.component";
+import {SpeakerDetailsComponent} from "./components/speakers/speakerdetails/speakerdetails.component";
 
 @NgModule({
-  declarations: [AppComponent, SessionsComponent, SpeakersComponent, SessionDetailsComponent],
+  declarations: [AppComponent, SessionsComponent, SpeakersComponent, SessionDetailsComponent, SpeakerDetailsComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HomePageModule, HttpClientModule],
   providers: [{provide: RouteReuseStrategy, useClass: IonicRouteStrategy}, { provide: LOCALE_ID, useValue: 'fr-FR'}],
   bootstrap: [AppComponent],

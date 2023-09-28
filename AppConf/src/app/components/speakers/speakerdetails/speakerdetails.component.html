@@ -1,0 +1,45 @@
+<div class="ion-page" id="main-content">
+  <ion-content>
+    <ion-card>
+      <img *ngIf="speaker.photoUrl" alt="Speaker" src="{{baseImgUrl + speaker.photoUrl}}" />
+      <ion-card-header>
+        <ion-card-title>{{speaker.name}}</ion-card-title>
+        <ion-card-subtitle>{{speaker.shortBio}}</ion-card-subtitle>
+        <ion-list *ngIf="badges.length>0">
+          <ion-item *ngFor="let b of badges">
+            <ion-badge>{{b.name}}</ion-badge>&nbsp;
+            <ion-label>{{b.description}}</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-row>
+          <p *ngIf="speaker.company">Company: {{speaker.company}}</p>
+          <p *ngIf="speaker.company && speaker.country">&nbsp;&nbsp;•&nbsp;&nbsp;</p>
+          <p *ngIf="speaker.country">Country: {{speaker.country}}</p>
+          <p *ngIf="speaker.country && speaker.featured">&nbsp;&nbsp;•&nbsp;&nbsp;</p>
+          <p *ngIf="speaker.featured">Featured: {{speaker.featured}}</p>
+        </ion-row>
+        <ion-item *ngIf="speaker.bio">{{speaker.bio}}</ion-item>
+        <ion-row>
+          <p *ngIf="speaker.tags">Tags: {{speaker.tags}}</p>
+          <p *ngIf="speaker.tags && speaker.socials">&nbsp;&nbsp;•&nbsp;&nbsp;</p>
+
+            <p *ngIf="socials.length>0">Socials:&nbsp;</p>
+            <p *ngFor="let s of socials">
+              <a href="{{s.link}}" style="text-decoration: none">
+                <ion-icon *ngIf="s.icon !== 'globe-outline'" name="logo-{{s.icon}}"></ion-icon>
+                <ion-icon *ngIf="s.icon == 'globe-outline'" name="{{s.icon}}"></ion-icon>
+                {{s.name}}
+              </a>&nbsp;
+            </p>
+        </ion-row>
+        <ion-col *ngIf="sessions.length>0">
+          <p>Speaker des conférences suivantes :</p>
+          <p *ngFor="let s of sessions, index as i">Conférence n°{{s.id}} : <a (click)="goToSession(s)" style="text-decoration: none">{{s.title}}</a></p>
+        </ion-col>
+      </ion-card-content>
+    </ion-card>
+
+  </ion-content>
+</div>

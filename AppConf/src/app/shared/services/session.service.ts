@@ -8,9 +8,6 @@ import {Session} from "../models/session";
 })
 export class SessionService implements OnInit  {
 
-  allSessions:Session[] =[];
-
-
   allSessionsSource = new BehaviorSubject<Session[]>([]);
   currentSessionSource = new BehaviorSubject<Session>({});
   $allSessions = this.allSessionsSource.asObservable();
