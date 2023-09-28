@@ -5,10 +5,11 @@
     <ion-list id="container">
       <ion-item *ngFor="let s of allSessions">
         <ion-label>{{s.title}}</ion-label>
-        <ion-button fill="clear">
-          <ion-icon name="chevron-forward" [routerLink]="['/sessions/', s.id]"></ion-icon>
+        <ion-button fill="clear" (click)="focusSession(s)">
+          <ion-icon name="chevron-forward"></ion-icon>
         </ion-button>
       </ion-item>
     </ion-list>
+    <router-outlet></router-outlet>
   </ion-content>
 </div>

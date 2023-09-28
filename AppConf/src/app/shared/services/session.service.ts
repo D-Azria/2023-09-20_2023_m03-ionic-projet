@@ -10,8 +10,11 @@ export class SessionService implements OnInit  {
 
   allSessions:Session[] =[];
 
+
   allSessionsSource = new BehaviorSubject<Session[]>([]);
+  currentSessionSource = new BehaviorSubject<Session>({});
   $allSessions = this.allSessionsSource.asObservable();
+  $currentSession = this.currentSessionSource.asObservable();
 
 
   constructor(private _httpService: HttpService) {
@@ -25,5 +28,9 @@ export class SessionService implements OnInit  {
 
   updateAllSessions(data: Session[]){
     this.allSessionsSource.next(data);
+  }
+
+  updateCurrentSession(data: Session){
+    this.currentSessionSource.next(data);
   }
 }

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Session} from "../../../shared/models/session";
 import {ActivatedRoute} from "@angular/router";
 import {HeaderService} from "../../../shared/services/header.service";
+import {SessionService} from "../../../shared/services/session.service";
+import {HttpService} from "../../../shared/services/http.service";
 
 @Component({
   selector: 'app-details',
@@ -14,13 +16,20 @@ export class SessionDetailsComponent  implements OnInit {
   baseImgUrl: string = "";
   session: Session = {};
   constructor(private _route: ActivatedRoute,
-              private _headerService: HeaderService) { }
+              private _httpService: HttpService,
+              private _headerService: HeaderService,
+              private _sessionService: SessionService) { }
 
   ngOnInit() {
     this._headerService.updateHeaderTitle(this.title);
-    this._route.params.subscribe(params => {
-      const sessionId = params['id'];
-      // Maintenant, utilisez cet ID pour charger les détails de la session ou effectuer d'autres actions.
+    this.baseImgUrl = this._httpService.baseImgUrl;
+    this._sessionService.$currentSession.subscribe(data => {
+      console.log(data);
+      this.session = data;
+    })
+    this._route.paramMap.subscribe(params => {
+      console.log(params);
+      console.log("ROUTE PARAMS");
     });
   }
 
