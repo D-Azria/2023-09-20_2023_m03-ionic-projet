@@ -8,6 +8,7 @@ import {Badge} from "../../../shared/models/badge";
 import {Social} from "../../../shared/models/social";
 import {Session} from "../../../shared/models/session";
 import {SessionService} from "../../../shared/services/session.service";
+import {filter, map, switchMap} from "rxjs";
 
 @Component({
   selector: 'app-speakerdetails',
@@ -27,9 +28,9 @@ export class SpeakerDetailsComponent  implements OnInit {
               private _httpService: HttpService,
               private _headerService: HeaderService,
               private _sessionService: SessionService,
-              private _speakernService: SpeakerService) { }
+              private _speakerService: SpeakerService) { }
 
-  ngOnInit() {
+  /*ngOnInit() {
     this._speakernService.$currentSpeaker.subscribe(data => {
       this.speaker = data;
       this.title = `Speaker: ${this.speaker.name}`;
@@ -54,10 +55,50 @@ export class SpeakerDetailsComponent  implements OnInit {
           console.log("Sessions du speaker : ", this.sessions);
         });
       }
-
     });
     this.baseImgUrl = this._httpService.baseImgUrl;
+  }*/
+
+  ngOnInit() {
+    this.baseImgUrl = this._httpService.baseImgUrl;
+
+    this._route.paramMap.pipe(
+      map(param => param.get('id')),
+      filter(speakerId => speakerId !== null),
+      map(speakerId => Number(speakerId)),
+      filter(idNumber => !isNaN(idNumber)),
+      switchMap(idNumber => this._httpService.getSpeakerById(idNumber))
+    ).subscribe(speaker => {
+      this._speakerService.updateCurrentSpeaker(speaker);
+      this._speakerService.$currentSpeaker.subscribe(speakerData => {
+        this.speaker = speakerData;
+        this.title = `Speaker: ${this.speaker.name}`;
+        this._headerService.updateHeaderTitle(this.title);
+
+        if (this.speaker.socials) {
+          this.socials = [];
+          this.speaker.socials.forEach(social => {
+            if (social.name === "Website") {
+              social.icon = "globe-outline";
+            }
+            this.socials.push(social);
+          });
+        }
+
+        if (this.speaker.badges) {
+          this.badges = [...this.speaker.badges];
+        }
+      });
+
+      if (speaker.id) {
+        this._httpService.getSessionsOfSpeaker(speaker.id).subscribe(sessions => {
+          this.sessions = sessions;
+          console.log("Sessions du speaker : ", this.sessions);
+        });
+      }
+    });
   }
+
 
   goToSession(session: Session) {
     this._sessionService.updateCurrentSession(session);

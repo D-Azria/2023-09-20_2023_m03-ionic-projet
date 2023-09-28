@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {forkJoin, map, Observable, of} from "rxjs";
+import {catchError, forkJoin, map, Observable, of, throwError} from "rxjs";
 import {Session} from "../models/session";
 import {Speaker} from "../models/speaker";
 
@@ -24,9 +24,35 @@ export class HttpService {
        map(data => Object.values(data)));
   }
 
+  getSessionById(id: number): Observable<Session> {
+    return this._http.get<{ [key: string]: Session }>(this.baseSessionUrl).pipe(
+      map(sessions => {
+        const session = sessions[String(id)];
+        if (!session) {
+          throw new Error(`Session with id ${id} not found.`);
+        }
+        return session;
+      }),
+      catchError(err => throwError(err))
+    );
+  }
+
   getSpeakers() {
     return this._http.get<Speaker[]>(this.baseSpeakerUrl).pipe(
       map(data => Object.values(data)));
+  }
+
+  getSpeakerById(id: number){
+    return this._http.get<{ [key: string]: Speaker }>(this.baseSpeakerUrl).pipe(
+      map(speakers => {
+        const speaker = speakers[String(id)];
+        if (!speaker) {
+          throw new Error(`Speaker with id ${id} not found.`);
+        }
+        return speaker;
+      }),
+      catchError(err => throwError(err))
+    );
   }
 
   getSessionsOfSpeaker(id: number):Observable<Session[]>{

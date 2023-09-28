@@ -36,7 +36,9 @@
         </ion-row>
         <ion-col *ngIf="sessions.length>0">
           <p>Speaker des conférences suivantes :</p>
-          <p *ngFor="let s of sessions, index as i">Conférence n°{{s.id}} : <a (click)="goToSession(s)" style="text-decoration: none">{{s.title}}</a></p>
+          <p *ngFor="let s of sessions, index as i">
+            Conférence n°{{s.id}} : <a (click)="goToSession(s)" class="custom-link">{{s.title}}</a>
+          </p>
         </ion-col>
       </ion-card-content>
     </ion-card>

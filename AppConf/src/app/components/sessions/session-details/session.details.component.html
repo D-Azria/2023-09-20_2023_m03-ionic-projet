@@ -1,6 +1,6 @@
-
+<app-menu></app-menu>
 <div class="ion-page" id="main-content">
-
+<app-header></app-header>
   <ion-content>
     <ion-card>
       <img *ngIf="session.image" alt="Conference" src="{{baseImgUrl + session.image}}" />
@@ -25,9 +25,10 @@
           <p>Speakers de cette conférence :</p>
           <ion-row *ngFor="let s of speakers, index as i" >
             <img src="{{baseImgUrl + s.photoUrl}}" style="max-width:25px">
-            <p><a (click)="goToSpeaker(s)" style="text-decoration: none">{{s.name}}</a></p>
+            <a (click)="goToSpeaker(s)" class="custom-link">{{s.name}}</a>
           </ion-row>
         </ion-col>
+        <ion-button (click)="takeNote(session)">Prendre des notes</ion-button>
       </ion-card-content>
     </ion-card>
   </ion-content>
