@@ -1,0 +1,14 @@
+<app-menu></app-menu>
+<div class="ion-page" id="main-content">
+  <app-header></app-header>
+  <ion-content>
+    <ion-list id="container">
+      <ion-item *ngFor="let s of allSpeakers">
+        <ion-label>{{s.name}}</ion-label>
+        <ion-button fill="clear" (click)="focusSpeaker(s)">
+          <ion-icon name="chevron-forward"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</div>

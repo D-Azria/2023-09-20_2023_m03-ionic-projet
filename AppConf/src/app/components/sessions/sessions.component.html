@@ -1,0 +1,15 @@
+<app-menu></app-menu>
+<div class="ion-page" id="main-content">
+  <app-header></app-header>
+  <ion-content>
+    <ion-list id="container">
+      <ion-item *ngFor="let s of allSessions">
+        <ion-label>{{s.title}}</ion-label>
+        <ion-button fill="clear" [routerLink]="['/sessions/',s.id]" >
+          <ion-icon name="chevron-forward"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+    <!--<router-outlet></router-outlet>-->
+  </ion-content>
+</div>

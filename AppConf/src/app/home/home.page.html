@@ -1,0 +1,36 @@
+
+
+<app-menu></app-menu>
+<div class="ion-page" id="main-content">
+  <app-header></app-header>
+
+
+  <ion-content class="ion-padding">
+    <ion-card>
+      <img alt="Welcome to conference" src="{{baseImgUrl + firstCard.image}}" />
+      <ion-card-header>
+        <ion-card-title>Conférence</ion-card-title>
+        <ion-card-subtitle>Les 18 et 19 octobre 2018</ion-card-subtitle>
+        <ion-button [routerLink]="['sessions']">Voir les sessions</ion-button>
+        <ion-button [routerLink]="['speakers']">Voir les présentateurs</ion-button>
+      </ion-card-header>
+    </ion-card>
+
+    <!--
+    <ion-item>
+      <div id="container">
+        <strong>Ready to create an app?</strong>
+        <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+      </div>
+    </ion-item>
+    -->
+
+  </ion-content>
+</div>
+
+
+
+
+
+
+

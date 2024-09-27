@@ -1,0 +1,35 @@
+<app-menu></app-menu>
+<div class="ion-page" id="main-content">
+<app-header></app-header>
+  <ion-content>
+    <ion-card>
+      <img *ngIf="session.image" alt="Conference" src="{{baseImgUrl + session.image}}" />
+      <ion-card-header>
+        <ion-card-title>{{session.title}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-row>
+          <p *ngIf="session.titleMobile">{{session.titleMobile}}</p>
+          <p *ngIf="session.titleMobile && session.category">&nbsp;&nbsp;•&nbsp;&nbsp;</p>
+          <p *ngIf="session.category">Category: {{session.category}}</p>
+          <p *ngIf="session.category && session.complexity">&nbsp;&nbsp;•&nbsp;&nbsp;</p>
+          <p *ngIf="session.complexity">Level: {{session.complexity}}</p>
+        </ion-row>
+        <ion-item *ngIf="session.description">{{session.description}}</ion-item>
+        <ion-row>
+          <p *ngIf="session.type">Type de conférence: {{session.type}}</p>
+          <p *ngIf="session.type && session.tags">&nbsp;&nbsp;•&nbsp;&nbsp;</p>
+          <p *ngIf="session.tags">Tags: {{session.tags}}</p>
+        </ion-row>
+        <ion-col *ngIf="speakers.length>0">
+          <p>Speakers de cette conférence :</p>
+          <ion-row *ngFor="let s of speakers, index as i" >
+            <img src="{{baseImgUrl + s.photoUrl}}" style="max-width:25px">
+            <a (click)="goToSpeaker(s)" class="custom-link">{{s.name}}</a>
+          </ion-row>
+        </ion-col>
+        <ion-button (click)="takeNote(session)">Prendre des notes</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
+</div>
